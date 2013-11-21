@@ -105,14 +105,17 @@ var KarmaReporter = function(tc) {
   this.specDone = function(specResult) {
     var skipped = specResult.status === 'disabled' || specResult.status === 'pending';
 
-    var suites = [];
-    suites.push(specResult.fullName.slice(0, specResult.fullName.length - specResult.description.length - 1));
-    suites.push(specResult.description);
+    var endOfSuiteName = (
+        specResult.fullName.length
+      - specResult.description.length
+      - 2 // jasmine's getSpecName appends a period to fullName
+    );
+    var suite = [specResult.fullName.slice(0, endOfSuiteName)];
 
     var result = {
       id: specResult.id,
       description: specResult.description,
-      suites: suites,
+      suite: suite, // karma requires 'suite' to be an Array
       //fullName: specResult.fullName,
       success: specResult.failedExpectations.length === 0,
       skipped: skipped,

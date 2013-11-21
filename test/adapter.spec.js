@@ -19,7 +19,8 @@ describe('jasmine adapter', function() {
         id: 'id',
         description: "should test",
         getSpecName: function() {
-          return "parent child should test"
+          // note(maciej-filip-sz): create name same way as jasmine.Env.getSpecName
+          return "parent child" + " " + "should test" + ".";
         },
         fn: function() {}
       });
@@ -68,7 +69,7 @@ describe('jasmine adapter', function() {
         expect(result.id).toBe(spec.id);
         expect(result.description).toBe('should test');
         // Note(max): Is it a problem that we are not expecting ['parent', 'child', 'should test']
-        expect(result.suites).toEqual(['parent child', 'should test']);
+        expect(result.suite).toEqual(['parent child']);
         expect(result.success).toBe(true);
         expect(result.skipped).toBe(false);
       });
