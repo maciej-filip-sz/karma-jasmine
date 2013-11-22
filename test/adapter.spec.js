@@ -20,7 +20,7 @@ describe('jasmine adapter', function() {
         description: "should test",
         getSpecName: function() {
           // note(maciej-filip-sz): create name same way as jasmine.Env.getSpecName
-          return "parent child" + " " + "should test" + ".";
+          return "parent child" + " " + "should test";
         },
         fn: function() {}
       });
