@@ -154,6 +154,11 @@ var bootJasmine = function(env) {
   window.jasmine = jasmineRequire.core(jasmineRequire);
 
   /**
+   * Create the Jasmine environment. This is used to run all specs in a project.
+   */
+  env = env || jasmine.getEnv();
+
+  /**
    * ## The Global Interface
    *
    * Build up the functions that will be exposed as the Jasmine public interface. A project can customize, rename or alias any of these functions as desired, provided the implementation remains unchanged.
@@ -258,11 +263,7 @@ var bootJasmine = function(env) {
 // we pass jasmineEnv during testing
 // in production we ask for it lazily, so that adapter can be loaded even before jasmine
 var createStartFn = function(tc, jasmineEnvPassedIn) {
-  var jasmineRequire = getJasmineRequireObj();
-  var jasmineEnv = bootJasmine(
-       jasmineEnvPassedIn
-    || jasmineRequire.core(jasmineRequire).getEnv()
-  );
+  var jasmineEnv = bootJasmine(jasmineEnvPassedIn);
 
   return function(config) {
     jasmineEnv.addReporter(new KarmaReporter(tc));
